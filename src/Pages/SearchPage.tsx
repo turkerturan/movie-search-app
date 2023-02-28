@@ -24,6 +24,8 @@ export default function SearchPage() {
         dispatch(setMovieList(list || []))
     }
 
+    const welcome = <h1 style={{ fontFamily: 'serif', fontSize: 50, textAlign: 'center', margin: 60 }}>Welcome to MOVIEW</h1>
+
 
     return (
         <div>
@@ -53,7 +55,7 @@ export default function SearchPage() {
             </Box>
             <span style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
                 <ol>
-                    {movieList.length ? movieList.map((item: MovieItem) => <MovieCard key={item.id} item={item} />) : "Welcome my movieSearchapp"}
+                    {movieList.length ? movieList.map((item: MovieItem) => <MovieCard key={item.id} item={item} />) : welcome}
                 </ol>
             </span>
         </div>
