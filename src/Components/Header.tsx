@@ -16,7 +16,8 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import { setMovieList } from "../redux/movieSlice";
 import { searchMovies } from "../service/searchMovies";
 import { useDispatch } from "react-redux/es/hooks/useDispatch";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useNavigation } from "react-router-dom";
+import { useLocation } from "react-router-dom"
 
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -63,6 +64,20 @@ export default function Header() {
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
     const [query, setQuery] = React.useState("")
+
+    let navigate = useNavigate()
+
+    async function onSearch() {
+        const list = await searchMovies(query)
+        dispatch(setMovieList(list || []))
+    }
+
+    function handleKeyPress(event: any) {
+        if (event.key === 'Enter') {
+            onSearch()
+            navigate("/")
+        }
+    }
 
 
 
@@ -183,7 +198,7 @@ export default function Header() {
                         </Typography>
                     </Link>
 
-                    {/* <Search>
+                    <Search>
                         <SearchIconWrapper>
                             <SearchIcon />
                         </SearchIconWrapper>
@@ -193,8 +208,9 @@ export default function Header() {
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 setQuery(event.target.value)
                             }}
+                            onKeyDown={handleKeyPress}
                         />
-                    </Search> */}
+                    </Search>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: "none", md: "flex" } }}>
                         <IconButton

@@ -19,7 +19,8 @@ export default function SearchPage() {
 
     const movieList = useSelector((state: RootState) => state.movies.movieList)
 
-    async function onSearch() {
+    async function onSearch(event: any) {
+        event.preventDefault()
         const list = await searchMovies(query)
         dispatch(setMovieList(list || []))
     }
@@ -37,6 +38,7 @@ export default function SearchPage() {
                 }}
                 noValidate
                 autoComplete="off"
+                onSubmit={onSearch}
             >
                 <TextField
                     id="outlined-controlled"
@@ -45,10 +47,6 @@ export default function SearchPage() {
                     placeholder=""
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                         setQuery(event.target.value);
-
-                    }}
-                    onKeyDown={event => {
-                        if (event.key === "enter") { onSearch() }
                     }}
                 />
                 <Button variant="outlined" sx={{ fontSize: 15 }} startIcon={<SearchIcon />} onClick={onSearch} >Search</Button>

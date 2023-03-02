@@ -8,7 +8,7 @@ import Header from "../Components/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { Button } from "@mui/material";
-import { addToFavorite } from "../redux/movieSlice";
+import { toggleFavorite } from "../redux/movieSlice";
 
 export default function MovieDetailsPage() {
 
@@ -35,7 +35,7 @@ export default function MovieDetailsPage() {
               {selectedMovie?.summary}
             </Typography>
           </CardContent>
-          {selectedMovie ? <Button sx={{ fontFamily: 'serif', fontSize: 20 }} onClick={() => dispatch(addToFavorite(selectedMovie))}>Add to favorite </Button> : null}
+          {selectedMovie ? <Button sx={{ fontFamily: 'serif', fontSize: 20 }} onClick={() => dispatch(toggleFavorite(selectedMovie))}>Add to favorite </Button> : null}
         </Box>
         <CardMedia
           component="img"

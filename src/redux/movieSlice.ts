@@ -8,14 +8,13 @@ export const movieSlice = createSlice({
         setMovieList(state, action: PayloadAction<MovieItem[]>) {
             state.movieList = action.payload
         },
-        addToFavorite(state, action: PayloadAction<MovieItem>) {
-            //            for (let i = 0; i < state.favoriteList.length; i++) {
-            //                if (action.payload.id === state.favoriteList[i].id) {
-            //                    state.favoriteList = state.favoriteList.filter(item => item.id !== action.payload.id)
-            //                } else {
-            state.favoriteList.push(action.payload)
-            //                }
-            //            }
+        toggleFavorite(state, action: PayloadAction<MovieItem>) {
+            const index = state.favoriteList.findIndex(item => item.id === action.payload.id)
+            if (index > -1) {
+                state.favoriteList.splice(index, 1)
+            } else {
+                state.favoriteList.push(action.payload)
+            }
         },
         selectMovie(state, action: PayloadAction<MovieItem>) {
             state.selectedMovie = action.payload
@@ -23,4 +22,4 @@ export const movieSlice = createSlice({
     }
 })
 
-export const { setMovieList, addToFavorite, selectMovie } = movieSlice.actions
+export const { setMovieList, toggleFavorite, selectMovie } = movieSlice.actions

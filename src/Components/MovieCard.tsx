@@ -8,15 +8,19 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { MovieItem } from "../types";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { addToFavorite, selectMovie } from "../redux/movieSlice";
+import { toggleFavorite, selectMovie } from "../redux/movieSlice";
+import { RootState } from "../redux/store";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 export default function MovieCard(props: { item: MovieItem }) {
 
     let movie = props.item
 
     const dispatch = useDispatch()
+
+    const favoriteList = useSelector((state: RootState) => state.movies.favoriteList)
 
 
     return (
@@ -44,8 +48,8 @@ export default function MovieCard(props: { item: MovieItem }) {
                     </CardContent>
                 </Link>
                 <CardActions disableSpacing sx={{ display: "flex", flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <IconButton aria-label="add to favorites" onClick={() => dispatch(addToFavorite(movie))}>
-                        <FavoriteIcon />
+                    <IconButton aria-label="add to favorites" onClick={() => dispatch(toggleFavorite(movie))}>
+                        {favoriteList.includes(movie) ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                     </IconButton>
                     <Typography sx={{ fontFamily: 'fantasy' }}>
                         Rating:{movie.vote}
