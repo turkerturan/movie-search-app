@@ -89,9 +89,9 @@ export default function Header() {
     //     })
     // }, [dispatch, query])
 
+    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
     const isMenuOpen = Boolean(anchorEl);
-    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
     const handleProfileMenuOpen = (event: any) => {
         setAnchorEl(event.currentTarget);
