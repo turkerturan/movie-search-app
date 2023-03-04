@@ -1,8 +1,9 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Header from '../Components/Header'
 import MovieCard from '../Components/MovieCard'
+import { setMovieList } from '../redux/movieSlice'
 import { RootState } from '../redux/store'
 import { MovieItem } from '../types'
 
@@ -10,7 +11,9 @@ export default function FavoritePage() {
 
     let favoriteMovies = useSelector((state: RootState) => state.movies.favoriteList)
 
-    let blankText = <h3 style={{ textAlign: 'center', fontSize: 50, fontFamily: 'fantasy' }}><Link to={"/"} style={{ textDecoration: 'none', color: 'black' }}>Search now and create your best list!</Link></h3>
+    let dispatch = useDispatch()
+
+    let blankText = <h3 onClick={() => dispatch(setMovieList([]))} style={{ textAlign: 'center', fontSize: 50, fontFamily: 'fantasy' }}><Link to={"/"} style={{ textDecoration: 'none', color: 'black' }}>Search now and create your best list!</Link></h3>
 
     return (
         <div>
